@@ -5,7 +5,7 @@ import Heading from "./components/Heading";
 function App() {
   return (
     <>
-      <Heading />
+      <Heading attr={123} attr2="String" >Olá mundo1</Heading>
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo soluta ad,
         dolore blanditiis temporibus consequatur sequi similique amet cupiditate

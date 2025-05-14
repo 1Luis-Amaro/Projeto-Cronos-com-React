@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './Heading.module.css'
 
-const Heading = () => {
+const Heading = (props) => {
   return (
-    <h1 className={styles.heading}>Heading</h1>
+    <h1 className={styles.heading}>{props.children}</h1>
   )
 }
 
