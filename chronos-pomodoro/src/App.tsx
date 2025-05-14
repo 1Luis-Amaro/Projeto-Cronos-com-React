@@ -1,16 +1,19 @@
-import './styles/theme.css'
-import './styles/global.css'
+import "./styles/theme.css";
+import "./styles/global.css";
+import Heading from "./components/Heading";
 
 function App() {
-
   return (
     <>
-      <div>
-        <h1>akndoaskmdasdaskdmaskdsmd</h1>
-      </div>
-     
+      <Heading />
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo soluta ad,
+        dolore blanditiis temporibus consequatur sequi similique amet cupiditate
+        reprehenderit cumque officiis eum! Beatae quos inventore rerum non
+        libero aliquam!
+      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
