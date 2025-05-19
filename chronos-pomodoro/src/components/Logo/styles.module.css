@@ -16,6 +16,7 @@
     color: var(--link-color);
     font-weight: 500;
     align-items: center;
+    transition: all 0.1s ease-in-out;
 }
 
 .logoLink svg{
@@ -24,6 +25,6 @@
 }
 
 .logo a:hover {
-    transition: all 0.1s ease-in-out;
     color: var(--link-hover);
+    filter: brightness(80%);
 }
