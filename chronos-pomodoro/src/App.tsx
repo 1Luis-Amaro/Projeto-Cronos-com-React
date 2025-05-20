@@ -25,7 +25,7 @@ function App() {
       <Container>
         <form className="form">
           <div className="formRow">
-           <DefaultInput id="meuInput" type=""/>
+           <DefaultInput labelText="task" id="meuInput" type="text"/>
           </div>
           
           <div className="formRow">
@@ -45,5 +45,5 @@ function App() {
     </>
   );
 }
-
+ 
 export default App;
