@@ -8,12 +8,22 @@ import CountDown from "./components/CountDown";
 import DefaultInput from "./components/DefaultInput";
 import { Cycles } from "./components/Cycles";
 import DefaultButton from "./components/DefaultButton";
-import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
+import {PlayCircleIcon } from "lucide-react";
 import Footer from "./components/Footer";
+import { useState } from "react";
+import Heading from "./components/Heading";
 
 function App() {
+  const [numero, setNumero] = useState(0)
+
+  function handleClick () {
+    setNumero(prevState => prevState + 1)
+  }
+
   return (
     <>
+    <Heading>Numero{numero}</Heading>
+    <button onClick={handleClick} >Aumenta</button>
       <Container>
         <Logo />
       </Container>
