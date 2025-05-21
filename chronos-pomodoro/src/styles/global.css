@@ -22,4 +22,5 @@ body {
   justify-content: center;
   flex-direction: column;
   gap: 2.4rem;
+  text-align: center;
 }

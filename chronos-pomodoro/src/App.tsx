@@ -25,9 +25,16 @@ function App() {
       <Container>
         <form className="form">
           <div className="formRow">
-           <DefaultInput labelText="task" id="meuInput" type="text"/>
+            <DefaultInput
+              labelText="task"
+              id="meuInput"
+              type="text"
+              placeholder="Digite algo"
+              //disabled
+              //defaultValue='Valor preenchido'
+            />
           </div>
-          
+
           <div className="formRow">
             <p>Lorem ipsum dolor</p>
           </div>
@@ -36,7 +43,7 @@ function App() {
             <p>Ciclos</p>
             <p>0 0 0 0 0 0</p>
           </div>
-         
+
           <div className="formRow">
             <button>Enviar</button>
           </div>
@@ -45,5 +52,5 @@ function App() {
     </>
   );
 }
- 
+
 export default App;
