@@ -25,3 +25,7 @@
     
     color: var(--link-hover);
 }
+
+.light {
+    background-color: brown;
+}
