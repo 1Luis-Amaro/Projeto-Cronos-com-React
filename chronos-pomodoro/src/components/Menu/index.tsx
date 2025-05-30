@@ -44,7 +44,7 @@ const Menu = () => {
   }, [theme])//Executa apenas quando o valor de theme muda
 
   return <div className={styles.menu}>
-    <h1>{theme}</h1>
+    <h1></h1>
     <a href="#" className={styles.menuLink} aria-label="Ir para a Home" title="Ir para a home">
       <HouseIcon />
       </a>
