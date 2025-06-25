@@ -2,7 +2,7 @@ import { PlayCircleIcon } from "lucide-react";
 import DefaultButton from "../DefaultButton";
 import DefaultInput from "../DefaultInput";
 import { Cycles } from "../Cycles";
-import { useTaskContext } from "../../contexts/TaskContext";
+import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 
 export function MainForm() {
   const {setState} = useTaskContext()
@@ -12,7 +12,7 @@ export function MainForm() {
       return {
         ...prevState,
         formattedSecondsRemaining: '21:00'
-      }
+      } 
     })
   }
 
