@@ -2,16 +2,49 @@ import { PlayCircleIcon } from "lucide-react";
 import DefaultButton from "../DefaultButton";
 import DefaultInput from "../DefaultInput";
 import { Cycles } from "../Cycles";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import type { TaskMode } from "../../models/TaskModel";
+import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 
 export function MainForm() {
-  const [taskName, setTaskName] = useState('')
+  const {setState} = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null)
 
   function handleCreateNewTask (event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    console.log("deu certo",taskName, taskNameInput.current.value)
+    if (taskNameInput.current === null)  return
+
+    const taskName = taskNameInput.current.value.trim() //o trim tira o espaco do início e/ou fim de uma string 
+
+    if(!taskName){
+      alert('Digite o nome da tarefa')
+      return
+    }
+
+    const newTask: TaskMode = {
+      id: Date.now().toString(), //pra não baixar uma biblioteca de id, fiz isso de colocar o id da data de agora a pessoa nunca vai conseguir colocar id igual pq o tempo vai ter passado
+      name: taskName,
+      startDate: Date.now(),
+      completeDate: null,
+      interrupetDate: null,
+      duration: 1,
+      type: 'workTime',
+    }
+
+    const secondsRemaining = newTask.duration * 60
+
+    setState(prevState => {
+      return {
+        ...prevState,
+        config: {...prevState.config},
+        activeTask: newTask,
+        currentCycle: 1, //conferir
+        secondsRemaining, //conferir
+        formattedSecondsRemaining: '00:00',
+        task: [...prevState.task, newTask],
+      }
+    })
   }
 
     return (
