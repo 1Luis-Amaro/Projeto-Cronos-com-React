@@ -5,5 +5,5 @@ export type TaskMode = {
     startDate: number;
     completeDate: number | null; //quando o timer chegar ao final
     interrupetDate: number | null; //quando a task for interrompida 
-    type: 'workTime' | 'shortBreak' | 'longBreakTime'
+    type: 'workTime' | 'shortBreakTime' | 'longBreakTime'
 }
