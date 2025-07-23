@@ -55,7 +55,7 @@ export function MainForm() {
   }
 
     return (
-         <form onSubmit={ handleCreateNewTask}  className="form">
+         <form onSubmit={ handleCreateNewTask}  className="form" >
           <div className="formRow">
             <DefaultInput
               labelText="task"
@@ -65,7 +65,7 @@ export function MainForm() {
               // value={taskName}
               // onChange={(e) => setTaskName(e.target.value)}
               ref={taskNameInput}
-              //disabled
+              disabled={!!state.activeTask}
               //defaultValue='Valor preenchido'
             />
           </div>
