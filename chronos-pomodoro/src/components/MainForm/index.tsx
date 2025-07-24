@@ -3,7 +3,7 @@ import DefaultButton from "../DefaultButton";
 import DefaultInput from "../DefaultInput";
 import { Cycles } from "../Cycles";
 import { useRef } from "react";
-import type { TaskMode } from "../../models/TaskModel";
+import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
@@ -29,12 +29,12 @@ export function MainForm() {
       return;
     }
 
-    const newTask: TaskMode = {
+    const newTask: TaskModel = {
       id: Date.now().toString(), //pra não baixar uma biblioteca de id, fiz isso de colocar o id da data de agora a pessoa nunca vai conseguir colocar id igual pq o tempo vai ter passado
       name: taskName,
       startDate: Date.now(),
       completeDate: null,
-      interrupetDate: null,
+      interruptDate: null,
       duration: state.config[nextCycleType],
       type: nextCycleType,
     };
@@ -49,7 +49,7 @@ export function MainForm() {
         currentCycle: nextCycle,
         secondsRemaining, //conferir
         formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        task: [...prevState.task, newTask],
+        tasks: [...prevState.tasks, newTask],
       };
     });
   }
@@ -60,9 +60,15 @@ export function MainForm() {
       setState(prevState => {
       return {
         ...prevState,
-        activeTask: null,
+          activeTask: null,
         secondsRemaining: 0,
         formattedSecondsRemaining: '00:00',
+        tasks: prevState.tasks.map(task => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return { ...task, interruptDate: Date.now() };
+          }
+          return task;
+        }),
       };
     });
   } 
