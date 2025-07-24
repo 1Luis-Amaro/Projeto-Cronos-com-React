@@ -1,4 +1,4 @@
-import { PlayCircleIcon } from "lucide-react";
+import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import DefaultButton from "../DefaultButton";
 import DefaultInput from "../DefaultInput";
 import { Cycles } from "../Cycles";
@@ -10,23 +10,23 @@ import { getNextCycleType } from "../../utils/getNextCycleType";
 import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 
 export function MainForm() {
-  const {state, setState} = useTaskContext()
-  const taskNameInput = useRef<HTMLInputElement>(null)
+  const { state, setState } = useTaskContext();
+  const taskNameInput = useRef<HTMLInputElement>(null);
 
-  //ciclos 
-  const nextCycle = getNextCycle(state.currentCycle)
-  const nextCycleType = getNextCycleType(nextCycle)
+  //ciclos
+  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycleType = getNextCycleType(nextCycle);
 
-  function handleCreateNewTask (event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    if (taskNameInput.current === null)  return
+    if (taskNameInput.current === null) return;
 
-    const taskName = taskNameInput.current.value.trim() //o trim tira o espaco do início e/ou fim de uma string 
+    const taskName = taskNameInput.current.value.trim(); //o trim tira o espaco do início e/ou fim de uma string
 
-    if(!taskName){
-      alert('Digite o nome da tarefa')
-      return
+    if (!taskName) {
+      alert("Digite o nome da tarefa");
+      return;
     }
 
     const newTask: TaskMode = {
@@ -37,51 +37,66 @@ export function MainForm() {
       interrupetDate: null,
       duration: state.config[nextCycleType],
       type: nextCycleType,
-    }
+    };
 
-    const secondsRemaining = newTask.duration * 60
+    const secondsRemaining = newTask.duration * 60;
 
-    setState(prevState => {
+    setState((prevState) => {
       return {
         ...prevState,
-        config: {...prevState.config},
+        config: { ...prevState.config },
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining, //conferir
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining) ,
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         task: [...prevState.task, newTask],
-      }
-    })
+      };
+    });
   }
 
-    return (
-         <form onSubmit={ handleCreateNewTask}  className="form" >
-          <div className="formRow">
-            <DefaultInput
-              labelText="task"
-              id="meuInput"
-              type="text"
-              placeholder="Digite algo"
-              // value={taskName}
-              // onChange={(e) => setTaskName(e.target.value)}
-              ref={taskNameInput}
-              disabled={!!state.activeTask}
-              //defaultValue='Valor preenchido'
+  return (
+    <form onSubmit={handleCreateNewTask} className="form">
+      <div className="formRow">
+        <DefaultInput
+          labelText="task"
+          id="meuInput"
+          type="text"
+          placeholder="Digite algo"
+          // value={taskName}
+          // onChange={(e) => setTaskName(e.target.value)}
+          ref={taskNameInput}
+          disabled={!!state.activeTask}
+          //defaultValue='Valor preenchido'
+        />
+      </div>
+
+      <div className="formRow">
+        <p>Próximo intervalo é de </p>
+      </div>
+
+      {state.currentCycle > 0 && (
+        <div className="formRow">
+          <Cycles />
+        </div>
+      )}
+      <div className="formRow">
+        {!state.activeTask ? (
+          <DefaultButton
+            aria-label="Iniciar nova tarefa"
+            title="Iniciar nova tarefa"
+            type="submit"
+            icon={<PlayCircleIcon />}
+          />
+        ) : (
+          <DefaultButton
+            aria-label="Interromper tarefa atual"
+            title="Interromper tarefa atual"
+            type="button"
+            color='red'
+            icon={<StopCircleIcon />}
             />
-          </div>
-
-          <div className="formRow">
-            <p>Próximo intervalo é de </p>
-          </div>
-
-          {state.currentCycle > 0 && (
-          <div className="formRow">
-            <Cycles/>
-          </div>
-    )}
-          <div className="formRow">
-            <DefaultButton icon={<PlayCircleIcon/>}/>
-          </div>
-        </form>
-    )
+        )}
+      </div>
+    </form>
+  );
 }
