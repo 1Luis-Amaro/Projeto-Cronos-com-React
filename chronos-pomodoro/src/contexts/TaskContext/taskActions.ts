@@ -9,8 +9,8 @@ import type { TaskModel } from "../../models/TaskModel";
 
 //fazendo os meus types
 export enum TaskActionTypes {
-  START_TASK = "STARK_TASK",
-  INTERRUPT_TAKS = "INTERRUPT_TASK",
+  START_TASK = "START_TASK",
+  INTERRUPT_TASK = "INTERRUPT_TASK",
   RESET_STATE = "RESET_STATE"
 }
 
@@ -21,7 +21,7 @@ export type TaskActionModel =
 }
 
 | {
-    type: TaskActionTypes.INTERRUPT_TAKS
+    type: TaskActionTypes.INTERRUPT_TASK
 }
 | {
     type: TaskActionTypes.RESET_STATE

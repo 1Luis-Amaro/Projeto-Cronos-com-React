@@ -8,6 +8,7 @@ import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 import { getNextCycle } from "../../utils/getNextCycle";
+import { Tips } from "../Tips";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -16,6 +17,8 @@ export function MainForm() {
   //ciclos
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
+
+
   
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
@@ -46,7 +49,8 @@ export function MainForm() {
   }
 
     function handleInterruptTask () {
-    dispatch({type: TaskActionTypes.INTERRUPT_TAKS})   
+      
+    dispatch({type: TaskActionTypes.INTERRUPT_TASK})   
   } 
 
   return (
@@ -66,7 +70,7 @@ export function MainForm() {
       </div>
 
       <div className="formRow">
-        <p>Próximo intervalo é de </p>
+        <Tips/>
       </div>
 
       {state.currentCycle > 0 && (
@@ -75,15 +79,16 @@ export function MainForm() {
         </div>
       )}
       <div className="formRow">
-        {!state.activeTask ? (
+        {!state.activeTask && (
           <DefaultButton
             aria-label="Iniciar nova tarefa"
             title="Iniciar nova tarefa"
             type="submit"
             icon={<PlayCircleIcon />}
-            
+            color="green"    
             />
-          ) : (
+          )}
+          {!!state.activeTask && (
             <DefaultButton
             aria-label="Interromper tarefa atual"
             title="Interromper tarefa atual"
