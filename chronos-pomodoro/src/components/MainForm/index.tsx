@@ -18,9 +18,6 @@ export function MainForm() {
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
-
-  
-
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -43,15 +40,21 @@ export function MainForm() {
       type: nextCycleType,
     };
 
- 
-    dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
-    
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+
+    const worker = new Worker(
+      new URL("../../workers/timeWorker.js", import.meta.url)
+    );
+    worker.postMessage("Olá Mundo");
+
+    worker.onmessage = function(event) {
+    console.log('PRINCIPAL recebeu', event.data)
+    }
   }
 
-    function handleInterruptTask () {
-      
-    dispatch({type: TaskActionTypes.INTERRUPT_TASK})   
-  } 
+  function handleInterruptTask() {
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+  }
 
   return (
     <form onSubmit={handleCreateNewTask} className="form">
@@ -70,7 +73,7 @@ export function MainForm() {
       </div>
 
       <div className="formRow">
-        <Tips/>
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (
@@ -85,19 +88,18 @@ export function MainForm() {
             title="Iniciar nova tarefa"
             type="submit"
             icon={<PlayCircleIcon />}
-            color="green"    
-            />
-          )}
-          {!!state.activeTask && (
-            <DefaultButton
+            color="green"
+          />
+        )}
+        {!!state.activeTask && (
+          <DefaultButton
             aria-label="Interromper tarefa atual"
             title="Interromper tarefa atual"
             type="button"
-            color='red'
+            color="red"
             icon={<StopCircleIcon />}
             onClick={handleInterruptTask}
-           
-            />
+          />
         )}
       </div>
     </form>
