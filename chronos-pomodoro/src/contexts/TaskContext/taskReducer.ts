@@ -22,22 +22,47 @@ export function taskReducer(
         tasks: [...state.tasks, newTask],
       }
     }
-    case TaskActionTypes.INTERRUPT_TASK: {
+  case TaskActionTypes.INTERRUPT_TASK: {
       return {
         ...state,
         activeTask: null,
         secondsRemaining: 0,
         formattedSecondsRemaining: '00:00',
-        tasks: state.tasks.map(task =>
-          task.id === state.activeTask!.id
-            ? { ...task, interruptDate: Date.now() }
-            : task
-        ),
+        tasks: state.tasks.map(task => {
+          if(state.activeTask && state.activeTask.id === task.id) {
+            return {...task, interruptDate: Date.now()}
+          }
+          return task
+      }),
       };
     }
     case TaskActionTypes.RESET_STATE: {
 
       return state
+    }
+
+    case TaskActionTypes.COMPLETE_TASK: {
+      return {
+        ...state,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
+        tasks: state.tasks.map(task => {
+          if(state.activeTask && state.activeTask.id === task.id) {
+            return {...task, completeDate: Date.now()}
+          }
+          return task
+      }),
+      };
+    }
+    case TaskActionTypes.COUNT_DOWN: {
+      return {
+        ...state,
+        secondsRemaining: action.payload.secondsRemaing,
+        formattedSecondsRemaining:formatSecondsToMinutes(
+          action.payload.secondsRemaing
+        )
+      }
     }
   }
   //sempre deve retornar o estado
