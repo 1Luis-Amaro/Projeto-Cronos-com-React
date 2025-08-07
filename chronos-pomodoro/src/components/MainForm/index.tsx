@@ -9,6 +9,7 @@ import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { Tips } from "../Tips";
+import { showMessage } from "../../adapters/showMessage";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -20,13 +21,14 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim(); //o trim tira o espaco do início e/ou fim de uma string
 
     if (!taskName) {
-      alert("Digite o nome da tarefa");
+      showMessage.warning("Digite o nome da tarefa");
       return;
     }
 
@@ -42,10 +44,13 @@ export function MainForm() {
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
 
-     
+    showMessage.success("Tarefa iniciada");
+    showMessage.info("Duas");
   }
 
   function handleInterruptTask() {
+    showMessage.dismiss();
+    showMessage.error("Tarefa interrompida");
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
