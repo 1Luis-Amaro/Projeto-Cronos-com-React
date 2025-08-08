@@ -2,6 +2,7 @@ import MainTemplate from "../../components/templates/MainTemplate";
 import Container from "../../components/Container";
 import GenericHtml from "../../components/GenericHtml";
 import Heading from "../../components/Heading";
+import { Link } from "react-router";
 
 export default function AboutPomodoro () {
    return (
@@ -111,7 +112,7 @@ export default function AboutPomodoro () {
 
           <p>
             <strong>Pronto pra focar?</strong> Bora lá{' '}
-            <a href='/'>voltar para a página inicial</a> e
+            <Link to='/'>voltar para a página inicial</Link> e
             iniciar seus Pomodoros! 🍅🚀
           </p>
 
