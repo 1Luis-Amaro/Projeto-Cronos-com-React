@@ -20,7 +20,7 @@
     font-size: 1.6rem;
     border-collapse: collapse;    
 }
- 
+    
 .responsiveTable th {
     background-color: var(--gray-600);
 }
