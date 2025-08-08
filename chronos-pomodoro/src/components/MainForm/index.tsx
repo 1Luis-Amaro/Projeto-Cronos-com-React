@@ -14,6 +14,8 @@ import { showMessage } from "../../adapters/showMessage";
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || ''
+
 
   //ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -65,7 +67,7 @@ export function MainForm() {
           // onChange={(e) => setTaskName(e.target.value)}
           ref={taskNameInput}
           disabled={!!state.activeTask}
-          //defaultValue='Valor preenchido'
+          defaultValue={lastTaskName}
         />
       </div>
 
