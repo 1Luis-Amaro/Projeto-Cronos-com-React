@@ -45,7 +45,6 @@ export function MainForm() {
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
 
     showMessage.success("Tarefa iniciada");
-    showMessage.info("Duas");
   }
 
   function handleInterruptTask() {
