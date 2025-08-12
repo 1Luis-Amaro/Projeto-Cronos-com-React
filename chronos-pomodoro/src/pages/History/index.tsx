@@ -7,9 +7,12 @@ import styles from "./styles.module.css";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
+import { sortTasks } from "../../utils/sortTasks";
 
 const History = () => {
   const {state} = useTaskContext() 
+  const sortedTaks = sortTasks({ tasks: state.tasks });
+
 
   return (
     <MainTamplate>
@@ -41,7 +44,7 @@ const History = () => {
             </thead>
 
             <tbody>
-              {state.tasks.map(task => {
+              {sortedTaks.map(task => {
                 const taskTypeDictionary = {
                   workTime: 'Foco',
                   shortBreakTime: 'Descanso curto',
