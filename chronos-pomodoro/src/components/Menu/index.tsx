@@ -71,7 +71,7 @@ const Menu = () => {
         <HistoryIcon />
       </RouterLink>
       <RouterLink
-        href="#"
+        href="/settings/"
         className={styles.menuLink}
         aria-label="Ir para Configurações"
         title="Ir para Configurações"
