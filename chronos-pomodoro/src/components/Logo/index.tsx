@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./styles.module.css";
 import { TimerIcon } from "lucide-react";
 import { RouterLink } from "../Router Link";
