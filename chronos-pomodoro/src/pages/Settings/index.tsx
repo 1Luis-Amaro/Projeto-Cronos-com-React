@@ -7,12 +7,13 @@ import { SaveIcon } from "lucide-react";
 import { useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { showMessage } from "../../adapters/showMessage";
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 
 const Settings = () => {
   const workTimeInput = useRef<HTMLInputElement>(null);
   const shortBreakTimeInput = useRef<HTMLInputElement>(null);
-  const longtBreakTimeInput = useRef<HTMLInputElement>(null);
-  const { state } = useTaskContext();
+  const longBreakTimeInput = useRef<HTMLInputElement>(null);
+  const { state, dispatch } = useTaskContext();
   function handleSaveSettings(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     showMessage.dismiss()
@@ -23,9 +24,9 @@ const formErrors = []
 
     const workTime = Number(workTimeInput.current?.value);
     const shortBreakTime = Number(shortBreakTimeInput.current?.value);
-    const longtBreakTime = Number(longtBreakTimeInput.current?.value);
+    const longBreakTime = Number(longBreakTimeInput.current?.value);
 
-    if(isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longtBreakTime) ) {
+    if(isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longBreakTime) ) {
       formErrors.push('Digite apenas numeros para TODOS os campos')
       
     }
@@ -38,7 +39,7 @@ const formErrors = []
       formErrors.push('Digite valores entre 1 e 30 para descanso curto')
     }
 
-    if(longtBreakTime < 1 || longtBreakTime > 60 ) {
+    if(longBreakTime < 1 || longBreakTime > 60 ) {
       formErrors.push('Digite valores entre 1 e 60 para descanso longo')
     }
 
@@ -48,7 +49,14 @@ const formErrors = []
       })
       return
     }
-    console.log('Salvar')
+    
+    dispatch({type: TaskActionTypes.CHANGE_SETTINGS, payload: {
+      workTime,
+      shortBreakTime,
+      longBreakTime,
+    },
+  })
+    showMessage.success('Configurações salvas')
   }
 
   return (
@@ -89,7 +97,7 @@ const formErrors = []
             <DefaultInput
               id="longBreakTime"
               labelText="Descanso longo"
-              ref={longtBreakTimeInput}
+              ref={longBreakTimeInput}
               defaultValue={state.config.longBreakTime}
               type="number"
             ></DefaultInput>
